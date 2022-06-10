@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import s from './gallery.module.scss';
-import GalleryItem from './GalleryItem/GalleryItem';
+import GalleryItem from './GalleryItem';
 export default function Gallery({ items, onClick }) {
   return (
     <ul className={s.gallery}>
