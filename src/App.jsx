@@ -22,8 +22,8 @@ export default function App() {
     setFetchElements(prev => {
       return { ...prev, loading: true, error: null };
     });
-    try {
-      async function getData() {
+    async function getData() {
+      try {
         const response = await axios.get(
           `https://pixabay.com/api/?q=${key}&page=${page}&key=27028263-30a4c0e676d46eddbf4883679&image_type=photo&orientation=horizontal&per_page=12`
         );
@@ -39,14 +39,15 @@ export default function App() {
               items: [...prev.items, ...response.data.hits],
             };
           });
+      } catch (e) {
+        setFetchElements(prev => {
+          return { ...prev, loading: false, error: e };
+        });
+        alert(fetchElements.error);
       }
-      getData();
-    } catch (e) {
-      setFetchElements(prev => {
-        return { ...prev, loading: false, error: e };
-      });
-      alert(fetchElements.error);
     }
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, page, fetchElements.error]);
 
   const showModal = (url, tags) => {
